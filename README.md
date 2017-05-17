@@ -51,6 +51,7 @@ picture:http://placehold.it/64x64
 The header is used to set the displayed name, picture, create hyperlinks and change colors.
 First, comments are either `[comment] Single line comment`, `<> Other single line comment` or `<-- Multiple line comment -->`
 This table list all the `key:value` pairs used by the app.
+
 |Key|Type|Description
 |-|-|-
 |`name`|string|Name displayed above all the panels
