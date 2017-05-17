@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{context.options.name}}'s Todo List</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootflat.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <style>
+.tab {
+  margin-left: 20px;
+}
+
+{* style('.list-group-item', 'background', options.item_background)*}
+{* style('.list-group-item', 'color', options.item_text) *}
+{* style('.list-group-item', 'border-top-color', options.item_separator) *}
+{* style('.panel-default > .panel-heading', 'border-bottom-color', options.item_separator) *}
+
+{* style('.panel-default > .panel-heading', 'background-color', options.header_background) *}
+{* style('.panel-heading .panel-title', 'color', options.header_text) *}
+
+{* style('.label', 'background-color', options.label_background) *}
+{* style('.label', 'color', options.label_text) *}
+
+{* style('.thumbnail', 'background-color', options.thumbnail_background) *}
+{* style('.thumbnail .caption', 'color', options.thumbnail_text) *}
+
+{* style('body', 'background-color', options.body_background) *}
+
+{* style('a', 'color', options.link_text) *}
+        
+{% for i,v in pairs(context.options.colors.categories) do %}
+.panel-heading.{{i}} {
+  background-color: {{v}};
+}
+{% end %}
+
+{% for i,v in pairs(context.options.colors.projects) do %}
+.label.{{i}} {
+  background-color: {{v}};
+}
+{% end %}
+        </style>
+    </head>
+
+    <body bgcolor="{{context.options.bg}}">
+        <div class="container" style="margin: 10px auto;">
+          
+          {% if options.name or options.picture then %}
+          <div class="row">
+            <div class="col-md-offset-5 col-md-2 col-xs-offset-4 col-xs-4">
+              <div class="thumbnail">
+                {% if context.options.url then %}
+                  <a target="_blank" href="{{context.options.url}}">
+                {% end %}
+                    <img class="img-rounded" src="{{context.options.picture}}">
+                    <div class="caption text-center">
+                      <h3>{{context.options.name}}</h3>
+                    </div>
+                {% if context.options.url then %}
+                  </a>
+                {% end %}
+              </div>
+            </div>
+          </div>
+          {% end %}
+
+          {% for i, cat in ipairs(context.data) do %}
+          <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+
+              <div class="panel panel-default">
+                <div class="panel-heading {{std(cat.title)}}">
+                  <h3 id="{{std(cat.title)}}" class="panel-title"><b>{{cat.title}}</b></h3>
+                </div>
+                
+                <ul class="list-group">
+                  {% local indent = false %}
+                  {% for i, item in ipairs(cat) do %}
+                    {%
+                      if not indent and type(item.checked) ~= 'boolean' then
+                        indent = true
+                      end
+                    %}
+                    <li class="list-group-item">
+                      {% if type(item.checked) == 'boolean' then %}
+                        <i class="{{indent and 'tab' or ''}} fa fa-{{item.checked and 'check-' or ''}}square-o" aria-hidden="true"></i>
+                      {% end %}
+                      {% for i,project in ipairs(item.projects) do %}
+                        <span class="label {{std(project)}}">{{project}}</span>
+                      {% end %}
+                      
+                      {*item.checked and '<strike>' or ''*}{{item.text}}{*item.checked and '</strike>' or ''*}
+                      
+                      {% if type(item.checked) == 'boolean' then %}
+                      {% end %}
+
+                      {% if item.link and context.options.links[item.link] then %}
+                        <a style="float: right" href="{{context.options.links[item.link]}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+                      {% end %}
+                    </li>
+                  {% end %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          {% end %}
+        </div>
+        <!-- Bootstrap -->
+        <script src="js/jquery-1.11.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>
