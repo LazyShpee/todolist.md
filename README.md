@@ -1,7 +1,10 @@
 # ToDoList
+
 A simple markdown-inspired todo list viewer written in **Lua** ([Demo](https://ode.bz/todo/lazyshpee))
 This uses luvit (backend) , Bootstrap 3, Bootflat and Font Awesome (frontend)
+
 ---
+
 ### Installation
 Install [luvit and lit](https://luvit.io/install.html)
 ```
@@ -64,6 +67,7 @@ This table list all the `key:value` pairs used by the app.
 |`header_text`|color|Panel header text color
 |`header_background`|color|Panel header default color
 |`body_background`|color|Body background color
+
 The *color* type is either a HTML color name (eg. `white`), a hexadecimal color (eg. `#FAD123`) or rgb notation (eg. `rgb(120, 230, 50)`)
 Beside those settings, there are three other customisation possible:
 * Panel header color `(Panel name){color}`
