@@ -1,7 +1,8 @@
 # ToDoList
 
 A simple markdown-inspired todo list viewer written in **Lua** ([Demo](https://ode.bz/todo/lazyshpee))
-This uses luvit (backend) , Bootstrap 3, Bootflat and Font Awesome (frontend)
+
+This uses luvit (backend) , Bootstrap 3, Bootflat and Font Awesome (frontend).
 
 ---
 
@@ -25,7 +26,8 @@ luvit todo.lua
 ---
 ### Board Files
 A board file is written in a simple Markdown(tm) inspired syntax.
-It is composed of two parts, the board header and the board data
+
+It is composed of two parts, the board header and the board data.
 
 ```
 name:Your Name
@@ -49,7 +51,9 @@ picture:http://placehold.it/64x64
 
 #### Header
 The header is used to set the displayed name, picture, create hyperlinks and change colors.
-First, comments are either `[comment] Single line comment`, `<> Other single line comment` or `<-- Multiple line comment -->`
+
+First, comments are either `[comment] Single line comment`, `<> Other single line comment` or `<-- Multiple line comment -->`.
+
 This table list all the `key:value` pairs used by the app.
 
 |Key|Type|Description
@@ -69,13 +73,14 @@ This table list all the `key:value` pairs used by the app.
 |`header_background`|color|Panel header default color
 |`body_background`|color|Body background color
 
-The *color* type is either a HTML color name (eg. `white`), a hexadecimal color (eg. `#FAD123`) or rgb notation (eg. `rgb(120, 230, 50)`)
+The *color* type is either a HTML color name (eg. `white`), a hexadecimal color (eg. `#FAD123`) or rgb notation (eg. `rgb(120, 230, 50)`).
+
 Beside those settings, there are three other customisation possible:
 * Panel header color `(Panel name){color}`
 * Label color `[Label name]{color}`
 * Links, declared like this: `<link name>{http://example.com}`, to use them write `<link name>` at the end of an item text
 
 #### Board Data
-Panel: `# Panel Name`
-Item: `* [Label name] Item text`
-Items can have zero or more labels. If a label name is either a ` ` (space), an `x` (case unsensitive), the item will instead be a task marked with a checkbox. If a serie of tasks are preceded by one or more regular items, they will be indented.
+* Panel: `# Panel Name`
+* Item: `* [Label name] Item text`
+* Items can have zero or more labels. If a label name is either a ` ` (space), an `x` (case unsensitive), the item will instead be a task marked with a checkbox. If a serie of tasks are preceded by one or more regular items, they will be indented.
