@@ -78,7 +78,7 @@ The *color* type is either a HTML color name (eg. `white`), a hexadecimal color 
 Beside those settings, there are three other customisation possible:
 * Panel header color `(Panel name){color}`
 * Label color `[Label name]{color}`
-* Links, declared like this: `<link name>{http://example.com}`, to use them write `<link name>` at the end of an item text
+* Links, declared like this: `<link name>{http://example.com}`, to use them write `<link name>` at the end of an item text or a panel name.
 
 #### Board Data
 * Panel: `# Panel Name`

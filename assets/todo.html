@@ -70,7 +70,10 @@
 
               <div class="panel panel-default">
                 <div class="panel-heading {{std(cat.title)}}">
-                  <h3 id="{{std(cat.title)}}" class="panel-title"><b>{{cat.title}}</b></h3>
+                  <h3 style="display: inline" id="{{std(cat.title)}}" class="panel-title"><b>{{cat.title}}</b></h3>
+                  {% if cat.link and context.options.links[cat.link] then %}
+                    <a style="float: right" href="{{context.options.links[cat.link]}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+                  {% end %}
                 </div>
                 
                 <ul class="list-group">

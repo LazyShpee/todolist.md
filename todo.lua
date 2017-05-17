@@ -47,6 +47,10 @@ local function parse(lines)
         local tmp = strip(v:sub(2))
         if v:sub(1,1) == '#' then
           local cat = {}
+          tmp = tmp:gsub('<(.+)>', function(m)
+            cat.link = m
+            return ''
+          end)
           if tmp:find('^%[%-%]') then
             cat.title = strip(tmp:sub(4))
             cat.collapse = true
