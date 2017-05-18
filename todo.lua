@@ -16,14 +16,14 @@ local function style(target, what, val)
   end
   return ''
 end
-
+local function split()
 local function parse(lines)
   local options = {colors = {projects = {}, categories = {}}, links = {}}
   local data = {}
   local mode = 'options'
   for i, v in ipairs(lines) do
     repeat
-      if v:match('^%-%-%-+$') then
+      if v == "---" then
         mode = 'data'
         break
       end
@@ -46,27 +46,30 @@ local function parse(lines)
       elseif mode == 'data' then
         local tmp = strip(v:sub(2))
         if v:sub(1,1) == '#' then
-          local cat = {}
+          local cat = {labels = {}}
           tmp = tmp:gsub('<(.+)>', function(m)
             cat.link = m
+            return ''
+          end):gsub('(%b[])%s*$', function (m)
+            table.insert(cat.labels, m:sub(2, -2))
             return ''
           end)
           if tmp:find('^%[%-%]') then
             cat.title = strip(tmp:sub(4))
             cat.collapse = true
           else
-            cat.title = tmp
+            cat.title = strip(tmp)
             cat.collapse = false
           end
           data[#data + 1] = cat
         elseif v:sub(1,1) == '*' then
-          local field = { projects = {}}
+          local field = { labels = {}}
           local c = tmp:gsub('(%b[])%s*', function(f)
             f = f:sub(2,-2)
             if f:match('^[ xX]$') then
               field.checked = f ~= ' '
             else
-              table.insert(field.projects, strip(f))
+              table.insert(field.labels, strip(f))
             end
             return ''
           end):gsub('<(.+)>', function(m)

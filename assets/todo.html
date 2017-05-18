@@ -1,13 +1,20 @@
 <!doctype html>
 <html>
     <head>
+        <meta charset='utf-8'>
+        <meta name="description" content="{{options.name}}'s markdown todolist">
+        <meta name="author" content="LazyShpee">
         <title>{{context.options.name}}'s Todo List</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootflat.css">
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <style>
 .tab {
-  margin-left: 20px;
+ padding-left: 35px;
+}
+
+span.label {
+  padding: 1px 3px;
 }
 
 {* style('.list-group-item', 'background', options.item_background)*}
@@ -27,7 +34,7 @@
 {* style('body', 'background-color', options.body_background) *}
 
 {* style('a', 'color', options.link_text) *}
-        
+
 {% for i,v in pairs(context.options.colors.categories) do %}
 .panel-heading.{{i}} {
   background-color: {{v}};
@@ -65,12 +72,14 @@
           {% end %}
 
           {% for i, cat in ipairs(context.data) do %}
-          <div class="row">
+          <div class="row" id="{{std(cat.title)}}">
             <div class="col-md-offset-3 col-md-6">
-
               <div class="panel panel-default">
                 <div class="panel-heading {{std(cat.title)}}">
-                  <h3 style="display: inline" id="{{std(cat.title)}}" class="panel-title"><b>{{cat.title}}</b></h3>
+                  <h3 style="display: inline; margin-right: 5px" class="panel-title"><b>{{cat.title}}</b></h3>
+                  {% for i, label in ipairs(cat.labels) do %}
+                    <span class="label {{std(label)}}">{{label}}</span>
+                  {% end %}
                   {% if cat.link and context.options.links[cat.link] then %}
                     <a style="float: right" href="{{context.options.links[cat.link]}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
                   {% end %}
@@ -84,12 +93,12 @@
                         indent = true
                       end
                     %}
-                    <li class="list-group-item">
+                    <li class="{{type(item.checked) == 'boolean' and indent and 'tab' or ''}} list-group-item">
                       {% if type(item.checked) == 'boolean' then %}
-                        <i class="{{indent and 'tab' or ''}} fa fa-{{item.checked and 'check-' or ''}}square-o" aria-hidden="true"></i>
+                        <i class="fa fa-{{item.checked and 'check-' or ''}}square-o check" aria-hidden="true"></i>
                       {% end %}
-                      {% for i,project in ipairs(item.projects) do %}
-                        <span class="label {{std(project)}}">{{project}}</span>
+                      {% for i,label in ipairs(item.labels) do %}
+                        <span class="label {{std(label)}}">{{label}}</span>
                       {% end %}
                       
                       {*item.checked and '<strike>' or ''*}{{item.text}}{*item.checked and '</strike>' or ''*}
@@ -108,8 +117,5 @@
           </div>
           {% end %}
         </div>
-        <!-- Bootstrap -->
-        <script src="js/jquery-1.11.0.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>
