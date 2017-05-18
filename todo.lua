@@ -16,7 +16,7 @@ local function style(target, what, val)
   end
   return ''
 end
-local function split()
+
 local function parse(lines)
   local options = {colors = {projects = {}, categories = {}}, links = {}}
   local data = {}
