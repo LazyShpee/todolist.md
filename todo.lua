@@ -6,6 +6,8 @@ config.paths = config.paths or {"./%s.md"}
 local fs = require('fs')
 local static = require('weblit-static')
 local template = require('libs.template')
+local md5 = require('libs.md5')
+
 template.caching(false)
 
 local function strip(str) return str and str:gsub('^%s+', ''):gsub('%s+$', '') end
@@ -31,6 +33,12 @@ local function parse(lines)
         if v:find('^([a-zA-Z_][a-zA-Z0-9_]*)%s*:%s*(%S.-)%s*$') then
           local n, v = v:match('^([a-zA-Z_][a-zA-Z0-9_]*)%s*:%s*(%S.-)%s*$')
           if not options[n] then
+            if n == 'picture' and v:find('^gravatar:%s*%S+') then
+              v = v:match('^gravatar:%s*(%S+)')
+              if v then
+                v = 'https://www.gravatar.com/avatar/'..md5.sumhexa(v:lower())..'?s=200'
+              end
+            end
             options[n] = v
           end
         elseif v:find('%b[]%b{}') then
