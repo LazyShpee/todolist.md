@@ -50,8 +50,9 @@ local function parse(lines)
           tmp = tmp:gsub('<(.+)>', function(m)
             cat.link = m
             return ''
-          end):gsub('(%b[])%s*$', function (m)
+          end):gsub('(%b[])', function (m)
             table.insert(cat.labels, m:sub(2, -2))
+            print('rep')
             return ''
           end)
           if tmp:find('^%[%-%]') then
