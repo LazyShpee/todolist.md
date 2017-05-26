@@ -11,7 +11,7 @@ local md5 = require('libs.md5')
 template.caching(false)
 
 local function strip(str) return str and str:gsub('^%s+', ''):gsub('%s+$', '') end
-local function standard(str) return str and str:lower():gsub('[^a-zA-Z0-9]', '-') end
+local function standard(str) return str and 's_'..str:lower():gsub('[^a-zA-Z0-9]', '-') end
 local function style(target, what, val)
   if val then
     return string.format('%s\n {\n%s: %s;\n}\n', target, what, val)
